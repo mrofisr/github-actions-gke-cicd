@@ -1,0 +1,22 @@
+name: Docker Images Builder
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update & Upgrade Package
+        run: apt update && apt upgrade -y
+      - name: Install Docker Scan Plugin
+        run: apt-get update && apt-get install jq docker-scan-plugin -y
+      - name: Scan Dockerfile
+        run: docker scan --severity=medium --json --file Dockerfile --exclude-base simple-api:latest | tee -a output.json
+      - name: Send notify to telegram
+        run: curl -F document=@"output.json" https://api.telegram.org/bot5056744709:AAE7Z_1qzXpb68ucxqp-RZVhl2Flz2BVwQ0/sendDocument?chat_id=602946927
+
+
