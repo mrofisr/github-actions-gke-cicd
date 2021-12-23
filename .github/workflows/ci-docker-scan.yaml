@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Update & Upgrade Package
-        run: apt update && apt upgrade -y
+        run: sudo apt update && sudo apt upgrade -y
       - name: Install Docker Scan Plugin
-        run: apt-get update && apt-get install jq docker-scan-plugin -y
+        run: sudo apt-get update && sudo apt-get install jq docker-scan-plugin -y
       - name: Scan Dockerfile
         run: docker scan --severity=medium --json --file Dockerfile --exclude-base simple-api:latest | tee -a output.json
       - name: Send notify to telegram
