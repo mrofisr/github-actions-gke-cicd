@@ -1,4 +1,4 @@
-name: Docker Images Builder
+name: Docker Images Scan
 on:
   push:
     branches:
@@ -18,5 +18,3 @@ jobs:
         run: docker scan --severity=medium --json --file Dockerfile --exclude-base simple-api:latest | tee -a output.json
       - name: Send notify to telegram
         run: curl -F document=@"output.json" https://api.telegram.org/bot5056744709:AAE7Z_1qzXpb68ucxqp-RZVhl2Flz2BVwQ0/sendDocument?chat_id=602946927
-
-
