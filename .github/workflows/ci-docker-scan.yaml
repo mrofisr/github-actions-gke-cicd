@@ -10,7 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Accept License Docker Scan
+      - name: Install Docker Scan Plugin
+        run: |
+          mkdir -p ~/.docker/cli-plugins && \
+          curl https://github.com/docker/scan-cli-plugin/releases/latest/download/docker-scan_linux_amd64 -L -s -S -o ~/.docker/cli-plugins/docker-scan &&\
+          chmod +x ~/.docker/cli-plugins/docker-scan
+      - name: Install Docker Scan Plugin
         run: docker scan --accept-license --version
       - name: Scan Dockerfile
         run: docker scan --severity=medium --json --file Dockerfile --exclude-base simple-api:latest | tee -a output.json
