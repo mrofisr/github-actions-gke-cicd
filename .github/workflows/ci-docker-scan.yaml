@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Update & Upgrade Package
-        run: sudo apt update && sudo apt upgrade -y
-      - name: Install Docker Scan Plugin
-        run: sudo apt-get update && sudo apt-get install jq docker-scan-plugin -y
+      - name: Accept License Docker Scan
+        run: docker scan --accept-license --version
       - name: Scan Dockerfile
         run: docker scan --severity=medium --json --file Dockerfile --exclude-base simple-api:latest | tee -a output.json
       - name: Send notify to telegram
