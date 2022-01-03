@@ -23,19 +23,19 @@ func main() {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"status":"root"}`))
+		log.Fatal(w.Write([]byte(`{"status":"root"}`)))
 	})
 
 	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"status":"pong"}`))
+		log.Fatal(w.Write([]byte(`{"status":"pong"}`)))
 	})
 
 	r.Get("/panic", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"status":"error"}`))
+		log.Fatal(w.Write([]byte(`{"status":"error"}`)))
 	})
 	r.Get("/quotes", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -49,8 +49,8 @@ func main() {
 		}
 		sb := string(body)
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(sb))
+		log.Fatal(w.Write([]byte(sb)))
 	})
 	fmt.Println("Listening to port 3000")
-	http.ListenAndServe(":3000", r)
+	log.Fatal(http.ListenAndServe(":3000", r))
 }
