@@ -27,5 +27,5 @@ COPY --from=build /app/main /app/main
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
-EXPOSE 8080
+EXPOSE 3000
 CMD [ "/app/main" ]

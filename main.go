@@ -1,19 +1,18 @@
 package main
 
 import (
-	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
 )
 
 func main() {
 	r := chi.NewRouter()
-	flag.Parse()
 
 	r.Use(middleware.RequestID)
 	r.Use(middleware.Logger)
@@ -23,20 +22,20 @@ func main() {
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusCreated)
+		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"status":"root"}`))
 	})
 
 	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusCreated)
+		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"status":"pong"}`))
 	})
 
 	r.Get("/panic", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusCreated)
-		w.Write([]byte(`{"status":"test"}`))
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"status":"error"}`))
 	})
 	r.Get("/quotes", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -49,8 +48,9 @@ func main() {
 			log.Fatalln(err)
 		}
 		sb := string(body)
-		w.WriteHeader(http.StatusCreated)
+		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(sb))
 	})
+	fmt.Println("Listening to port 3000")
 	http.ListenAndServe(":3000", r)
 }
