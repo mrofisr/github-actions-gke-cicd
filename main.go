@@ -38,7 +38,6 @@ func main() {
 		w.WriteHeader(http.StatusCreated)
 		w.Write([]byte(`{"status":"test"}`))
 	})
-	// RESTy routes for "articles" resource
 	r.Get("/quotes", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		resp, err := http.Get("https://api.quotable.io/random")
