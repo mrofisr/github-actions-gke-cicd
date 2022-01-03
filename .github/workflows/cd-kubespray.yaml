@@ -1,4 +1,4 @@
-name: CI & CD Main Process
+name: CI & CD Main Kubespray
 on:
   push:
     branches:
