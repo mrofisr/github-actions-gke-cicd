@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-go-api
+  namespace: default
+  labels:
+    run: simple-go-api
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    run: simple-go-api
+    app: simple-go-api
+  type: LoadBalancer
+  externalIPs:
+    - "34.101.182.187"

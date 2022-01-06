@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-go-api
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      run: simple-go-api
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        run: simple-go-api
+    spec:
+      containers:
+      - name: simple-go-api
+        image: ghcr.io/mrofisr/simple:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            memory: "200Mi"
+            cpu: "1"
+          requests:
+            memory: "100Mi"
+            cpu: "0.5"
