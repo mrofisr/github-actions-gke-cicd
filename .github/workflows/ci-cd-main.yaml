@@ -65,8 +65,9 @@ jobs:
             cd simple
             git pull
             cd kubernetes
+            kubectl delete all --namespace backend
             kubectl apply -f namespace.yaml
             kubectl apply -f pod.yaml
             kubectl apply -f services.yaml
             kubectl apply -f autoscale.yaml
-            kubectl get all --namespace backend
+            kubectl get svc simple-go-api --namespace backend -o json | jq 
