@@ -11,7 +11,6 @@ spec:
       targetPort: 3000
   selector:
     run: simple-go-api
-    app: simple-go-api
   type: LoadBalancer
   externalIPs:
-    - "34.101.135.238"
+    - "10.184.0.9"
