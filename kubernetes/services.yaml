@@ -14,4 +14,4 @@ spec:
     app: simple-go-api
   type: LoadBalancer
   externalIPs:
-    - "34.101.182.187"
+    - "34.101.135.238"
