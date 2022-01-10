@@ -4,6 +4,8 @@ metadata:
   name: simple-go-api
   namespace: backend
 spec:
+  securityContext:
+    runAsUser: 10001
   selector:
     matchLabels:
       run: simple-go-api

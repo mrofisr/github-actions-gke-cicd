@@ -3,11 +3,8 @@ FROM golang:alpine as build
 ENV GO111MODULE=on
 
 ENV USER=appuser
-ENV UID=10001 
+ENV UID=10001
 
-# Install git + SSL ca certificates.
-# Git is required for fetching the dependencies.
-# Ca-certificates is required to call HTTPS endpoints.
 RUN apk update && apk add --no-cache git ca-certificates && update-ca-certificates
 
 RUN adduser \    
