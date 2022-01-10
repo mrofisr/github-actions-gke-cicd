@@ -66,3 +66,7 @@ jobs:
             git pull
             cd kubernetes
             kubectl apply -f namespace.yaml
+            kubectl apply -f pod.yaml
+            kubectl apply -f services.yaml
+            kubectl apply -f autoscale.yaml
+            kubect get all --namepspace backend
