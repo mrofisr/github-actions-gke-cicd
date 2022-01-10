@@ -2,7 +2,7 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: simple-go-api
-  namespace: default
+  namespace: backend
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

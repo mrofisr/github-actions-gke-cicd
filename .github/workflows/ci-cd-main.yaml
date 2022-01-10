@@ -62,4 +62,4 @@ jobs:
             cd simple
             git pull
             cd kubernetes
-            kubectl get all
+            kubectl apply -f namespace.yaml

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: simple-go-api
-  namespace: default
+  namespace: backend
 spec:
   selector:
     matchLabels:
