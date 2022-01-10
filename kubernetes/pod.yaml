@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       run: simple-go-api
-  replicas: 3
   template:
     metadata:
       labels:
