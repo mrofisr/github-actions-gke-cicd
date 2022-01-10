@@ -69,4 +69,4 @@ jobs:
             kubectl apply -f pod.yaml
             kubectl apply -f services.yaml
             kubectl apply -f autoscale.yaml
-            kubect get all --namepspace backend
+            kubectl get all --namespace backend
