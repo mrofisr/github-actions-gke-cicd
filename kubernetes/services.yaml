@@ -9,8 +9,7 @@ spec:
   ports:
     - port: 3000
       targetPort: 3000
+      nodePort: 32715
   selector:
     run: simple-go-api
-  type: LoadBalancer
-  externalIPs:
-    - "10.184.0.9"
+  type: NodePort
