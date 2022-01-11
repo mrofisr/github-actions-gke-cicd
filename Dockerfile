@@ -24,14 +24,13 @@ COPY . .
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 RUN go build -a -installsuffix cgo -ldflags="-s -w" -o main .
 
-FROM scratch
+FROM busybox
+
+WORKDIR /app
 
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=build /etc/passwd /etc/passwd
 COPY --from=build /etc/group /etc/group
-
-WORKDIR /app
-
 COPY --from=build /app/main /app/main
 
 USER appuser:appuser
