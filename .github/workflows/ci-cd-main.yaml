@@ -59,7 +59,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd simple
@@ -70,4 +70,4 @@ jobs:
             kubectl apply -f pod.yaml
             kubectl apply -f services.yaml
             kubectl apply -f autoscale.yaml
-            kubectl get svc simple-go-api --namespace backend -o json | jq 
+            kubectl get all -n backend
