@@ -1,0 +1,16 @@
+apiVersion: extensions/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    
+  name: cluster-ingress
+  namespace: backend
+spec:
+  rules:
+    - host: simple.mrofisr.dev
+      http:
+        paths:
+          - backend:
+              serviceName: simple-go-api
+              servicePort: 3000

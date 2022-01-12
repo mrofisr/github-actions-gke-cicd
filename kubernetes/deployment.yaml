@@ -24,3 +24,17 @@ spec:
             cpu: 500m
           requests:
             cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-go-api
+  namespace: backend
+  labels:
+    run: simple-go-api
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    run: simple-go-api
