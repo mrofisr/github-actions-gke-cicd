@@ -5,7 +5,7 @@ ENV GO111MODULE=on
 ENV USER=appuser
 ENV UID=10001
 
-RUN apk update && apk add --no-cache git
+RUN apk update && apk add --no-cache git ca-certificates && update-ca-certificates
 
 RUN adduser \    
     --disabled-password \    
@@ -28,6 +28,7 @@ FROM busybox
 
 WORKDIR /app
 
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=build /etc/passwd /etc/passwd
 COPY --from=build /etc/group /etc/group
 COPY --from=build /app/main /app/main
