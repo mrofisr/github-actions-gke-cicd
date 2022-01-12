@@ -7,11 +7,10 @@ metadata:
     kubernetes.io/ingress.class: gce
 spec:
   rules:
-  - host: simple.mrofisr.dev
-    http:
+  - http:
       paths:
       - path: /
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: simple-go-api

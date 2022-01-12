@@ -34,7 +34,8 @@ metadata:
     run: simple-go-api
 spec:
   ports:
-    - port: 3000
+    - port: 80
       targetPort: 3000
   selector:
     run: simple-go-api
+  type: LoadBalancer
