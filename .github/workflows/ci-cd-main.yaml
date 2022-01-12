@@ -65,7 +65,9 @@ jobs:
             cd simple
             git pull
             cd kubernetes
-            kubectl delete all --namespace backend
+            kubectl delete all --all -n backend
+            kubectl delete ingress cluster-ingress -n backend
+            kubectl delete namespace backend
             kubectl apply -f namespace.yaml
             kubectl apply -f deployment.yaml
             kubectl apply -f autoscale.yaml
