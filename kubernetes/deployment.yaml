@@ -38,3 +38,4 @@ spec:
       targetPort: 3000
   selector:
     run: simple-go-api
+  type: LoadBalancer
