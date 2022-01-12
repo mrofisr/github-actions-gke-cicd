@@ -67,7 +67,7 @@ jobs:
             cd kubernetes
             kubectl delete all --namespace backend
             kubectl apply -f namespace.yaml
-            kubectl apply -f pod.yaml
-            kubectl apply -f services.yaml
+            kubectl apply -f deployment.yaml
             kubectl apply -f autoscale.yaml
+            kubectl apply -f ingress.yaml
             kubectl get all -n backend
