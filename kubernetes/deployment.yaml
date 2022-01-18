@@ -38,3 +38,5 @@ spec:
       targetPort: 3000
   selector:
     run: simple-go-api
+  externalIPs:
+    - "34.124.218.106"
