@@ -8,10 +8,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: simple.mrofisr.dev
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: simple-go-api
-              servicePort: 3000
+  - host: simple.mrofisr.dev
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: simple-go-api
+          servicePort: 3000
