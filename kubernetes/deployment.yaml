@@ -34,9 +34,11 @@ metadata:
     run: simple-go-api
 spec:
   ports:
-    - port: 3000
+    - name: http
+      port: 80
       targetPort: 3000
+      protocol: TCP
   selector:
     run: simple-go-api
   externalIPs:
-    - "34.124.218.106"
+    - "34.124.208.75"
