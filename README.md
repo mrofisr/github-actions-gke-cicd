@@ -1,1 +1,1 @@
-# Sample CI/CD Pipeline use Github Actions
+# Sample CI/CD Pipeline use GithubActions
