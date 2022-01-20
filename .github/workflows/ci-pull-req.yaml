@@ -1,6 +1,7 @@
 name: CI Testing - PullRequest
 on:
   pull_request: {}
+
 jobs:
   Test:
     strategy:
@@ -32,25 +33,3 @@ jobs:
         uses: securego/gosec@master
         with:
           args: ./...
-  TestCache:
-    runs-on: ubuntu-latest
-    needs: [TestCache]
-    steps:
-    - name: Install Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.17.x
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - uses: actions/cache@v2
-      with:
-        path: |
-          ~/go/pkg/mod
-          ~/.cache/go-build
-          ~/Library/Caches/go-build
-          %LocalAppData%\go-build
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
-    - name: Test
-      run: go test ./...
