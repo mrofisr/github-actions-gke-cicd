@@ -1,7 +1,8 @@
 name: CI Testing - PullRequest
 on:
-  pull_request: {}
-
+  pull_request:
+    branches:
+      - testing
 jobs:
   Test:
     strategy:
