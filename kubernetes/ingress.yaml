@@ -5,13 +5,11 @@ metadata:
   namespace: experiment
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    enable-modsecurity: "true"
 spec:
   rules:
-  - host: simple.mrofisr.dev
-    http:
+  - http:
       paths:
-      - path: /*
+      - path: /
         pathType: ImplementationSpecific
         backend:
           service:
