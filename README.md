@@ -1,1 +1,3 @@
-# Sample CI/CD Pipeline use GithubActions
+# CI / CD Pipeline Github Actions to Google Kubernetes Engine
+
+![alt](img/ci-cd-github-actions.jpg)

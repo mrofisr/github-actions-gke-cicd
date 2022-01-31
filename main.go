@@ -8,7 +8,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/go-chi/render"
 )
 
 func main() {
@@ -16,7 +15,6 @@ func main() {
 
 	r.Use(middleware.RequestID)
 	r.Use(middleware.Logger)
-	r.Use(render.SetContentType(render.ContentTypeJSON))
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
