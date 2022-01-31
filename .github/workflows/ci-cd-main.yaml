@@ -3,11 +3,6 @@ on:
   push:
     branches:
       - main
-env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: my-first-cluster-1
-  GKE_ZONE: us-central1-c
-  DEPLOYMENT_NAME: simple-go-api
 
 jobs:
   Build:
@@ -70,6 +65,11 @@ jobs:
         with:
           sarif_file: "trivy-results.sarif"
   DeployToKubernetes:
+    env:
+      PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+      GKE_CLUSTER: my-first-cluster-1
+      GKE_ZONE: us-central1-c
+      DEPLOYMENT_NAME: simple-go-api
     name: Deploy To Kubernetes
     needs: [DockerImagesScan]
     runs-on: ubuntu-latest
@@ -81,8 +81,11 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - name: Log gcloud configuration
+        run: |-
+          gcloud info
       - name: Set up GKE credentials
-        uses: google-github-actions/get-gke-credentials@v0.1.0
+        uses: google-github-actions/get-gke-credentials@v0
         with:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
