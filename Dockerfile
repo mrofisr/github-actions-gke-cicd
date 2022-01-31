@@ -1,12 +1,10 @@
 FROM golang:alpine as build
 
 ENV GO111MODULE=on
-
 ENV USER=appuser
 ENV UID=10001
 
 RUN apk update && apk add --no-cache git ca-certificates && update-ca-certificates
-
 RUN adduser \    
     --disabled-password \    
     --gecos "" \    
@@ -15,7 +13,6 @@ RUN adduser \
     --no-create-home \    
     --uid "${UID}" \    
     "${USER}"
-
 WORKDIR /app
 COPY ./go.mod .
 RUN go mod download

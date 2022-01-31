@@ -3,6 +3,12 @@ on:
   push:
     branches:
       - main
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: my-first-cluster-1
+  GKE_ZONE: us-central1-c
+  DEPLOYMENT_NAME: simple-go-api
+
 jobs:
   Build:
     name: Build Docker Images
@@ -68,19 +74,23 @@ jobs:
     needs: [DockerImagesScan]
     runs-on: ubuntu-latest
     steps:
-      - uses: appleboy/ssh-action@master
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            cd simple
-            git pull
-            cd kubernetes
-            kubectl delete all --all -n backend
-            kubectl delete namespace backend
-            kubectl apply -f namespace.yaml
-            kubectl apply -f deployment.yaml
-            kubectl apply -f autoscale.yaml
-            kubectl get all -n backend
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - name: Set up GKE credentials
+        uses: google-github-actions/get-gke-credentials@v0
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }
+      - name: Set up Kustomize
+        run: |-
+          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+          chmod u+x ./kustomize
+      - name: Deploy
+        run: |-
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
+          kubectl get services -o wide
