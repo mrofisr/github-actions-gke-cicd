@@ -30,15 +30,12 @@ kind: Service
 metadata:
   name: simple-go-api
   namespace: experiment
-  labels:
-    run: simple-go-api
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - name: http
       port: 3000
       targetPort: 3000
-      nodePort: 31000
       protocol: TCP
   selector:
     run: simple-go-api
