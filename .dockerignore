@@ -4,3 +4,4 @@
 output.json
 README.md
 main_test.go
+.vscode/*
