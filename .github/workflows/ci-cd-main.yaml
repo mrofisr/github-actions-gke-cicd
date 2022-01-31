@@ -91,5 +91,4 @@ jobs:
           kubectl apply -f namespace.yaml
           kubectl apply -f deployment.yaml
           kubectl apply -f autoscale.yaml
-          kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get services -o wide
