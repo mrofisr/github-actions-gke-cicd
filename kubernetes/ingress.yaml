@@ -3,11 +3,15 @@ kind: Ingress
 metadata:
   name: simple-ingress
   namespace: experiment
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    enable-modsecurity: "true"
 spec:
   rules:
-  - http:
+  - host: simple.mrofisr.dev
+    http:
       paths:
-      - path: /
+      - path: /*
         pathType: ImplementationSpecific
         backend:
           service:
