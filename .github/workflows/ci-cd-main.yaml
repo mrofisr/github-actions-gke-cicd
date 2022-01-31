@@ -88,10 +88,7 @@ jobs:
       - name: Deploy
         run: |-
           cd kubernetes/
-          kubectl delete -f namespace.yaml
-          kubectl delete -f deployment.yaml
-          kubectl delete -f autoscale.yaml
-          kubectl delete -f ingress.yaml
+          kubectl delete all --all -n experiment
           kubectl apply -f namespace.yaml
           kubectl apply -f deployment.yaml
           kubectl apply -f autoscale.yaml
