@@ -52,7 +52,7 @@ jobs:
       GKE_ZONE: us-central1-c
       DEPLOYMENT_NAME: simple-go-api
     name: Deploy To Kubernetes
-    needs: [DockerImagesScan]
+    needs: [Build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
