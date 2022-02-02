@@ -41,6 +41,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t ghcr.io/mrofisr/simple:latest .
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
