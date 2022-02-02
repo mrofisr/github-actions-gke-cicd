@@ -2,7 +2,7 @@ name: CI Testing - PullRequest
 on:
   pull_request:
     branches:
-      - testing
+      - mrofisr
 jobs:
   FuncTest:
     strategy:
