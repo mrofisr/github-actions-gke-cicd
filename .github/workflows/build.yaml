@@ -45,25 +45,6 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-  DockerImagesScan:
-    name: Scanning Docker Images
-    needs: [Build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: "ghcr.io/mrofisr/simple:latest"
-          format: "template"
-          template: "@/contrib/sarif.tpl"
-          output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH"
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: "trivy-results.sarif"
   DeployToKubernetes:
     env:
       PROJECT_ID: ${{ secrets.GKE_PROJECT }}

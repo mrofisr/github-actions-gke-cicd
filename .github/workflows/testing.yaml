@@ -4,7 +4,7 @@ on:
     branches:
       - testing
 jobs:
-  Test:
+  FuncTest:
     strategy:
       matrix:
         go-version: [1.16.x, 1.17.x]
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GO111MODULE: on
-    needs: [Test]
+    needs: [FuncTest]
     steps:
       - name: Checkout Source
         uses: actions/checkout@v2
@@ -34,3 +34,24 @@ jobs:
         uses: securego/gosec@master
         with:
           args: ./...
+  DockerImagesScan:
+    name: Scanning Docker Images
+    needs: [SecurityTest]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "ghcr.io/mrofisr/simple:latest"
+          format: "template"
+          template: "@/contrib/sarif.tpl"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL"
+      - name: Inspect action SARIF report
+        run: cat "trivy-results.sarif"
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: "trivy-results.sarif"
