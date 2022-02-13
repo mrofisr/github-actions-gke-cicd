@@ -19,7 +19,7 @@ func main() {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		log.Println(w.Write([]byte(`{"status":"root"}`)))
+		log.Println(w.Write([]byte(`{"status":"toor"}`)))
 	})
 
 	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
