@@ -1,4 +1,4 @@
-package main
+package main_test
 
 import (
 	"io/ioutil"
@@ -10,7 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func Test_APIFunctionRoot(t *testing.T) {
+func TestAPIFunctionRoot(t *testing.T) {
 	r := chi.NewRouter()
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -27,7 +27,7 @@ func Test_APIFunctionRoot(t *testing.T) {
 		t.Errorf("Expected %d, received %d", http.StatusOK, res.StatusCode)
 	}
 }
-func Test_APIFunctionPing(t *testing.T) {
+func TestAPIFunctionPing(t *testing.T) {
 	r := chi.NewRouter()
 	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -44,7 +44,7 @@ func Test_APIFunctionPing(t *testing.T) {
 		t.Errorf("Expected %d, received %d", http.StatusOK, res.StatusCode)
 	}
 }
-func Test_APIFunctionPanic(t *testing.T) {
+func TestAPIFunctionPanic(t *testing.T) {
 	r := chi.NewRouter()
 	r.Get("/panic", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -61,7 +61,7 @@ func Test_APIFunctionPanic(t *testing.T) {
 		t.Errorf("Expected %d, received %d", http.StatusBadRequest, res.StatusCode)
 	}
 }
-func Test_APIFunctionQuotes(t *testing.T) {
+func TestAPIFunctionQuotes(t *testing.T) {
 	r := chi.NewRouter()
 	r.Get("/quotes", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
