@@ -3,8 +3,8 @@ on:
   pull_request:
     
 jobs:
-  SecurityTest:
-    name: Scanning Docker Images
+  SAST:
+    name: SAST Pipeline
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

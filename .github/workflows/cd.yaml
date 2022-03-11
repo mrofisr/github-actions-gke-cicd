@@ -2,7 +2,7 @@ name: CI Build and CD to Kubernetes Cluster
 on:
   workflow_dispatch:
 jobs:
-  Build:
+  BuildAndPush:
     name: Build Docker Images
     runs-on: ubuntu-latest
     env:
@@ -49,7 +49,7 @@ jobs:
       GKE_ZONE: us-central1-c
       DEPLOYMENT_NAME: simple-go-api
     name: Deploy To Kubernetes
-    needs: [Build]
+    needs: [BuildAndPush]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
