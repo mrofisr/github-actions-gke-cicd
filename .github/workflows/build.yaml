@@ -1,8 +1,6 @@
 name: CI Build and CD to Kubernetes Cluster
 on:
-  push:
-    branches:
-      - "main"
+  workflow_dispatch:
 jobs:
   Build:
     name: Build Docker Images

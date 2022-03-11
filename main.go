@@ -12,28 +12,9 @@ import (
 
 func main() {
 	r := chi.NewRouter()
-
 	r.Use(middleware.RequestID)
 	r.Use(middleware.Logger)
-
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		log.Println(w.Write([]byte(`{"status":"root"}`)))
-	})
-
-	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		log.Println(w.Write([]byte(`{"status":"pong"}`)))
-	})
-
-	r.Get("/panic", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		log.Println(w.Write([]byte(`{"status":"error"}`)))
-	})
-	r.Get("/quotes", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		resp, err := http.Get("https://api.quotable.io/random")
 		if err != nil {

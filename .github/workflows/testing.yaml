@@ -1,60 +1,42 @@
 name: CI Testing - PullRequest
 on:
-  push:
-    branches:
-      - "testing"
+  pull_request:
+    
 jobs:
-  FuncTest:
-    strategy:
-      matrix:
-        go-version: [1.16.x, 1.17.x]
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-    - name: Install Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ matrix.go-version }}
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Test
-      run: go test ./...
   SecurityTest:
-    strategy:
-      matrix:
-        go-version: [1.16.x, 1.17.x]
-    runs-on: ubuntu-latest
-    env:
-      GO111MODULE: on
-    needs: [FuncTest]
-    steps:
-      - name: Checkout Source
-        uses: actions/checkout@v2
-      - name: Run Gosec Security Scanner
-        uses: securego/gosec@master
-        with:
-          args: ./...
-  DockerImagesScan:
     name: Scanning Docker Images
-    needs: [SecurityTest]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: 'trivy-results-repo.sarif'
+          severity: 'CRITICAL'
       - name: Build an image from Dockerfile
         run: |
           docker build -t ghcr.io/mrofisr/simple:latest .
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner in docker mode
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: "ghcr.io/mrofisr/simple:latest"
           format: "template"
           template: "@/contrib/sarif.tpl"
-          output: "trivy-results.sarif"
+          output: "trivy-results-docker.sarif"
           severity: "CRITICAL"
       - name: Inspect action SARIF report
-        run: cat "trivy-results.sarif"
-      - name: Upload Trivy scan results to GitHub Security tab
+        run: |
+          cat "trivy-results-repo.sarif"
+          cat "trivy-results-docker.sarif"
+      - name: Upload Trivy scan results to GitHub Security tab (Repository)
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: "trivy-results.sarif"
+          sarif_file: "trivy-results-repo.sarif"
+      - name: Upload Trivy scan results to GitHub Security tab (Docker)
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'trivy-results-docker.sarif'
