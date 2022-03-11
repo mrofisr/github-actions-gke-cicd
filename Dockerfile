@@ -1,3 +1,4 @@
+# Tahap 1 : Membuat Binnary Go
 FROM golang:alpine as build
 
 ENV GO111MODULE=on
@@ -20,6 +21,8 @@ RUN go mod download
 COPY . .
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 RUN go build -a -installsuffix cgo -ldflags="-s -w" -o main .
+
+# Tahap 2 : Memindahkan Binnary Go
 
 FROM busybox
 
