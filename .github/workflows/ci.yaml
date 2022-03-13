@@ -29,15 +29,13 @@ jobs:
           vuln-type: 'os,library'
           output: "trivy-results-docker.sarif"
           severity: "CRITICAL"
-      - name: Inspect action SARIF report
-        run: |
-          cat "trivy-results-repo.sarif"
-          cat "trivy-results-docker.sarif"
-      - name: Upload Trivy scan results to GitHub Security tab (Repository)
+      - name: Upload Trivy scan results to GitHub Security tab (repo)
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: "trivy-results-repo.sarif"
-      - name: Upload Trivy scan results to GitHub Security tab (Docker)
+          sarif_file: trivy-results-repo.sarif
+          category: repo
+      - name: Upload Trivy scan results to GitHub Security tab (docker)
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: 'trivy-results-docker.sarif'
+          sarif_file: trivy-results-docker.sarif
+          category: docker
