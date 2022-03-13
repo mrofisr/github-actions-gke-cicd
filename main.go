@@ -30,7 +30,8 @@ func main() {
 	})
 	r.Get("/wheater", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		resp, err := http.Get("https://api.openweathermap.org/data/2.5/weather?q=Semarang,id&appid=b6907d289e10d714a6e88b30761fae22")
+		API_KEY := "b6907d289e10d714a6e88b30761fae22"
+		resp, err := http.Get("https://api.openweathermap.org/data/2.5/weather?q=Semarang,id&appid=" + API_KEY + "")
 		if err != nil {
 			log.Fatalln(err)
 		}

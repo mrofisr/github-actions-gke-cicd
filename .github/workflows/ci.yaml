@@ -24,14 +24,12 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: "ghcr.io/mrofisr/simple:latest"
-          format: "template"
-          template: "@/contrib/sarif.tpl"
-          output: "trivy-results-docker.sarif"
-          severity: "CRITICAL"
-      - name: Inspect action SARIF report
-        run: |
-          cat "trivy-results-repo.sarif"
-          cat "trivy-results-docker.sarif"
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results-docker.sarif'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL'
       - name: Upload Trivy scan results to GitHub Security tab (Repository)
         uses: github/codeql-action/upload-sarif@v1
         with:
