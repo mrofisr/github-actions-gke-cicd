@@ -14,8 +14,8 @@ jobs:
         with:
           scan-type: 'fs'
           ignore-unfixed: false
-          format: 'sarif'
-          output: 'trivy-results-repo.sarif'
+          format: "table"
+          exit-code: 1
       - name: Build an image from Dockerfile
         run: |
           docker build -t ghcr.io/mrofisr/simple:latest .
@@ -23,10 +23,10 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: "ghcr.io/mrofisr/simple:latest"
-          format: "sarif"
+          format: "table"
+          exit-code: 1
           ignore-unfixed: false
           vuln-type: 'os,library'
-          output: "trivy-results-docker.sarif"
       - name: Upload Trivy scan results to GitHub Security tab (repo)
         uses: github/codeql-action/upload-sarif@v1
         with:
