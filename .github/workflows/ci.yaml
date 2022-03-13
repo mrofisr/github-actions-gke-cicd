@@ -9,13 +9,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run Trivy vulnerability scanner in repo mode
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          ignore-unfixed: false
-          format: "table"
-          exit-code: 1
       - name: Build an image from Dockerfile
         run: |
           docker build -t ghcr.io/mrofisr/simple:latest .
@@ -26,4 +19,3 @@ jobs:
           format: "table"
           exit-code: 1
           ignore-unfixed: false
-          vuln-type: 'os,library'
