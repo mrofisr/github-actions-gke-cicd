@@ -16,6 +16,13 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: "ghcr.io/mrofisr/simple:latest"
-          format: "table"
-          exit-code: 1
-          ignore-unfixed: false
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'trivy-results.sarif'
+          
