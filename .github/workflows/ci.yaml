@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: rofi
       - name: Build an image from Dockerfile
         run: |
           docker build -t ghcr.io/mrofisr/simple:latest .
